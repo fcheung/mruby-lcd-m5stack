@@ -1,4 +1,8 @@
+#ifdef M5STICKC
+#include <M5StickC.h>
+#else
 #include <M5Stack.h>
+#endif
 
 #include "mruby.h"
 #include "mruby/class.h"
