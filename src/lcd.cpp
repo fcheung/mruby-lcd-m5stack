@@ -18,7 +18,15 @@ mrb_lcd_set_brightness(mrb_state *mrb, mrb_value self)
 {
   mrb_int b;
   mrb_get_args(mrb, "i", &b);
+  #ifdef M5STICKC
+  if(b > 15 || b< 7){
+    printf("brightness must be 7-15\n");
+    return self;
+  }
+  M5.Axp.ScreenBreath(b);
+  #else
   M5.Lcd.setBrightness(b);
+  #endif
   return self;
 }
 
