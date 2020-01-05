@@ -357,7 +357,7 @@ mrb_mruby_lcd_m5stack_gem_init(mrb_state *mrb)
 
   // M5.Lcd.setTextWrap(boolean w);
   // -> M5.Lcd.setTextWrap(boolean w, boolean h);
-  mrb_define_class_method(mrb, lcd, "set_text_wrap", mrb_lcd_set_text_wrap, MRB_ARGS_REQ(1) || MRB_ARGS_OPT(1));
+  mrb_define_class_method(mrb, lcd, "set_text_wrap", mrb_lcd_set_text_wrap, MRB_ARGS_REQ(1) | MRB_ARGS_OPT(1));
 
   // M5.Lcd.printf();
   // M5.Lcd.print();
