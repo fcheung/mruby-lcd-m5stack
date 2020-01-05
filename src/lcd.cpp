@@ -27,6 +27,7 @@ mrb_lcd_set_brightness(mrb_state *mrb, mrb_value self)
   #else
   M5.Lcd.setBrightness(b);
   #endif
+  M5.Lcd.setTextDatum(TC_DATUM);
   return self;
 }
 
@@ -186,8 +187,17 @@ mrb_lcd_draw_string(mrb_state *mrb, mrb_value self)
   mrb_int x, y, c;
   char *s;
   mrb_get_args(mrb, "ziii", &s, &x, &y, &c);
-  M5.Lcd.drawCentreString(s, x, y, c);
+  M5.Lcd.drawString(s, x, y, c);
   return self;
+}
+
+static mrb_value 
+mrb_lcd_set_text_datum(mrb_state *mrb, mrb_value self)
+{
+  mrb_int dt;
+  mrb_get_args(mrb, "i", &dt);
+  M5.Lcd.setTextDatum(dt);
+  return mrb_nil_value();
 }
 
 static mrb_value
@@ -365,6 +375,8 @@ mrb_mruby_lcd_m5stack_gem_init(mrb_state *mrb)
 
   // M5.Lcd.drawCentreString(const char *string, int dX, int poY, int font);
   mrb_define_class_method(mrb, lcd, "draw_string", mrb_lcd_draw_string, MRB_ARGS_REQ(4));
+
+  mrb_define_class_method(mrb, lcd, "text_datum=", mrb_lcd_set_text_datum, MRB_ARGS_REQ(1));
 
   // M5.Lcd.drawRightString(const char *string, int dX, int poY, int font);
 
