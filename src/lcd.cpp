@@ -217,11 +217,23 @@ static mrb_value
 mrb_lcd_set_text_color(mrb_state *mrb, mrb_value self)
 {
   mrb_int fc;
+
   mrb_get_args(mrb, "i", &fc);
   M5.Lcd.setTextColor((uint16_t)fc);
+  
   return mrb_nil_value();
 }
 
+static mrb_value
+mrb_lcd_set_background_color(mrb_state *mrb, mrb_value self)
+{
+  mrb_int backgroundcolor;
+
+  mrb_get_args(mrb, "i", &backgroundcolor);
+  M5.Lcd.setTextColor(M5.Lcd.textcolor, (uint16_t)backgroundcolor);
+  
+  return mrb_nil_value();
+}  
 
 ///
 
@@ -335,6 +347,8 @@ mrb_mruby_lcd_m5stack_gem_init(mrb_state *mrb)
 
   // M5.Lcd.setTextColor(uint16_t color);
   mrb_define_class_method(mrb, lcd, "text_color=", mrb_lcd_set_text_color, MRB_ARGS_REQ(1));
+
+  mrb_define_class_method(mrb, lcd, "background_color=", mrb_lcd_set_background_color, MRB_ARGS_REQ(1));
 
   // M5.Lcd.setTextColor(uint16_t color, uint16_t backgroundcolor);
 
