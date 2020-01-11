@@ -181,6 +181,14 @@ mrb_lcd_set_cursor(mrb_state *mrb, mrb_value self)
   return mrb_nil_value();
 }
 
+static mrb_value mrb_lcd_print(mrb_state *mrb, mrb_value self)
+{
+  char *s = NULL;
+  mrb_get_args(mrb, "z", &s);
+  M5.Lcd.print(s);
+  return self;
+}
+
 static mrb_value
 mrb_lcd_draw_string(mrb_state *mrb, mrb_value self)
 {
@@ -377,6 +385,8 @@ mrb_mruby_lcd_m5stack_gem_init(mrb_state *mrb)
   mrb_define_class_method(mrb, lcd, "draw_string", mrb_lcd_draw_string, MRB_ARGS_REQ(4));
 
   mrb_define_class_method(mrb, lcd, "text_datum=", mrb_lcd_set_text_datum, MRB_ARGS_REQ(1));
+
+  mrb_define_class_method(mrb, lcd, "print", mrb_lcd_print, MRB_ARGS_REQ(1));
 
   // M5.Lcd.drawRightString(const char *string, int dX, int poY, int font);
 
